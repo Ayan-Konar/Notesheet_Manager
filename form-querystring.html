@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+ <head>
+     <title>Maintaining State With The Query String</title>
+ </head>
+ <body>
+     <form id="myForm" action="submit.mumps.cgi" method="POST">
+         <input type="text" name="title" />
+         <textarea name="text"></textarea>
+     </form>
+     <script>
+         var GET = {};
+         var queryString = window.location.search.replace(/^\?/, '');
+         queryString.split(/\&/).forEach(function(keyValuePair) {
+             var paramName = keyValuePair.replace(/=.*$/, ""); // some decoding is probably necessary
+             var paramValue = keyValuePair.replace(/^[^=]*\=/, ""); // some decoding is probably necessary
+             GET[paramName] = paramValue;
+         });
+         document.getElementById("myForm").getElementsByTagName("input")[0].value = GET["form/title"];
+         document.getElementById("myForm").getElementsByTagName("textarea")[0].value = GET["form/text"];
+     </script>
+ </body>
+</html>
